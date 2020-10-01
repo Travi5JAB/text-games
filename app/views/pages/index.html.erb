@@ -1,0 +1,13 @@
+<div class = "shatter2">
+
+  <div id = "main" class = "home">
+
+    <div id = "content">
+      <%= render :partial => "pages/games"  if controller_name == "pages" %>
+    </div>
+
+    <%= render :partial => "pages/footer" if controller_name == "pages" %>
+
+  </div>
+
+</div>

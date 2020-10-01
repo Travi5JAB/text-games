@@ -1,0 +1,10 @@
+<h1 class = "gamesHeader">Games:</h1>
+<hr id = "titleBreak"/>
+
+<div class="games">
+
+  <% @all_games.each do |game_box| -%>
+    <%= render :partial => "pages/game_box", :object=> game_box %>
+  <% end %>
+
+</div>

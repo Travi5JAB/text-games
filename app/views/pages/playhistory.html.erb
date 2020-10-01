@@ -1,0 +1,20 @@
+<div class = "play_history" id = "main">
+  <div class="content" id="content">
+    <h1 id="title">My Games</h1>
+
+    <!-- put all games uploaded by user -->
+    <%= render :partial => "pages/mygames" if controller_name == "pages" %>
+
+    <!-- put all games played by user -->
+    <% if @play_history.length > 0 %>
+      <h2><%=current_user.username%>'s Play History:</h2>
+      <div class="games">
+        <% @play_history.each do |game_box| -%>
+          <%= render :partial => "pages/game_box", :object => game_box %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render :partial => "pages/footer" if controller_name == "pages" %>
+</div>

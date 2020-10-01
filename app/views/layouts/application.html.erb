@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TextGames</title>
+    <title>TextAdventure</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,8 +10,18 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if current_user%>
+      <%= render :partial => "pages/navbar"  if controller_name == "pages" %>
+
+      <% flash.each do |key, msg| -%>
+        <% if flash.alert%>
+          <%= content_tag :div, msg.html_safe, class: "alert", id: "alert"%>
+        <% elsif flash.notice%>
+          <%= content_tag :div, msg.html_safe, class: "notice", id: "notice"%>
+        <% end %>
+      <% end -%>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
