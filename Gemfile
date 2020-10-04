@@ -63,3 +63,7 @@ gem 'ahoy_matey'
 # dotenv
 gem 'dotenv'
 gem 'dotenv-rails', groups: [:development, :test]
+
+# jquery
+gem 'jquery-rails'
+gem 'rails-ujs', '~> 0.1.0'

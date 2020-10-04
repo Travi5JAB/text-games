@@ -1,0 +1,8 @@
+<!-- <form class="comment_form" action="/add_comment" method="post"> -->
+<%= form_tag("/add_comment", method: 'post', remote: true, class: 'comment_form', id: 'comment_form' ) do %>
+  <input type="text" name="comment[user_id]" value="<%=current_user.id%>" readonly hidden>
+  <input type="text" name="comment[game_id]" value="<%=@game.id%>" readonly hidden>
+  <textarea name="comment[comment_text]" placeholder="Leave a Comment"></textarea>
+  <input class="button" type="submit" value="Submit">
+<% end %>
+<!-- </form> -->

@@ -1,0 +1,2 @@
+$("div#comment_thread").remove();
+$("<%= escape_javascript(render :partial => 'pages/comments') %>").appendTo("#comment_area");

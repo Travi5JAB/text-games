@@ -1,0 +1,335 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// show section
+.game_screen{
+  // height: 140% !important;
+  overflow: hidden;
+}
+
+  // header section
+  .game_screen .header{
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 70% 30%;
+    grid-template-areas:
+    "name name"
+    ". fullScreen";
+  }
+    .game_screen .header button{
+      grid-area: fullScreen;
+      margin-top: 10px;
+      height: 20px;
+      width: 100px;
+    }
+    .game_screen .header h1{
+      grid-area: name;
+      padding-left: 20px;
+      text-align: center;
+    }
+  // end header
+
+  // game_section
+  .game_screen .game_section{
+    z-index: 10;
+    padding-top: 1px;
+    text-align: center;
+    background-color: black;
+    color: white;
+  }
+    .game_screen .game_section iframe{
+
+    }
+  // end game_section
+
+  // game info section
+  .game_info{
+    margin: 15px;
+  }
+    .game_info h2{
+
+    }
+    .game_info .upload{
+
+    }
+      .game_info .upload a{
+        color: white;
+        margin-left: 15px;
+      }
+    .game_info .box{
+      display: grid;
+      grid-template-columns:15% 10% 75%;
+      grid-template-rows: auto;
+      grid-template-areas:
+      "h3 h4 .";
+    }
+      .game_info .box h3{
+        grid-area: h3;
+      }
+      .game_info h4{
+        grid-area: h4;
+        margin-left: 10px;
+      }
+  // end game info
+
+// rating section
+.rating{
+  margin: 10px;
+  color: white;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto;
+  grid-template-areas:
+  "h2"
+  "stars";
+}
+  .rating h2{
+    grid-area: h2;
+    color: white !important;
+  }
+
+  // stars section / form
+  .star_group {
+    grid-area: stars;
+    unicode-bidi: bidi-override;
+    font-size: 0;
+
+    // grid
+    display: grid;
+    grid-template-columns: 18% 70% 12%;
+    grid-template-rows: 50px 75px 50px;
+    grid-template-areas:
+    "stars . ."
+    "textbox textbox textbox"
+    ". . submit";
+  }
+    .stars{
+      grid-area: stars;
+      direction: rtl;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+      .stars * {
+        font-size: 2rem;
+      }
+      .stars > .rating_radio {
+        display: none;
+      }
+      .stars > input + label {
+        display: inline-block;
+        overflow: hidden;
+        text-indent: 9999px;
+        width: 1em;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .stars > input + label:before {
+        display: inline-block;
+        text-indent: -9999px;
+        content: "☆";
+        color: #888;
+      }
+      .stars > input:checked ~ label:before, .stars > input + label:hover ~ label:before, .stars > input + label:hover:before {
+        content: "★";
+        color: #e1ff00;
+        text-shadow: 0 0 1px #333;
+      }
+      .stars > .star_clear + label {
+        text-indent: -9999px;
+        width: .5em;
+        margin-left: -.5em;
+      }
+      .stars > .star_clear + label:before {
+        width: .5em;
+      }
+      .stars:hover > input + label:before {
+        content: "☆";
+        color: #888;
+        text-shadow: none;
+      }
+      .stars:hover > input + label:hover ~ label:before, .stars:hover > input + label:hover:before {
+        content: "★";
+        color: #e1ff00;
+        text-shadow: 0 0 1px #333;
+      }
+      // stars when game is already rated
+      .stars .highlighted:before{
+        content: "★";
+        color: #ff1900;
+        text-shadow: 0 0 1px #333;
+      }
+      .stars > input + .highlighted:before {
+        content: "☆";
+        color: #ff1900;
+        text-shadow: 0 0 1px #333;
+      }
+    .star_group textarea{
+      grid-area: textbox;
+      width: 100%;
+      height: 60px;
+      resize: none;
+    }
+    .rating .star_group #submit{
+      grid-area: submit;
+      background-color: #ed8200;
+      border: none;
+      border-radius: 30px;
+      width: 150px;
+      height: 30px;
+      color: white;
+      font-size: 25px;
+      box-shadow:
+        2px 0 4px 0 rgba(0, 0, 0, 0.5),
+        2px 5px 5px 3px rgba(0, 0, 0, 0.6);
+      // margin-left: 30px;
+    }
+      .rating .star_group #submit:hover{
+        background-color: #d67600;
+        color: #dbd9d9;
+        transform: translateY(5px);
+        box-shadow:
+          2px 0 4px 1px rgba(0, 0, 0, 1);
+      }
+// end rating
+
+// comments section
+.comments{
+  margin-top: 20px;
+}
+  .comments .comment_form{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    grid-template-rows: 65px 55px;
+    grid-template-areas:
+    "text text"
+    ". submit";
+  }
+    .comments .comment_form textarea{
+      resize: none;
+      grid-area: text;
+      width: 100%;
+      height: 50px;
+    }
+    .comments .comment_form .button{
+      grid-area: submit;
+      background-color: #ed8200;
+      border: none;
+      width: 150px;
+      border-radius: 30px;
+      height: 30px;
+      color: white;
+      font-size: 25px;
+      box-shadow:
+        2px 0 4px 0 rgba(0, 0, 0, 0.5),
+        2px 5px 5px 3px rgba(0, 0, 0, 0.6);
+      margin-left: 30px;
+    }
+      .comments .comment_form .button:hover{
+        background-color: #d67600;
+        color: #dbd9d9;
+        transform: translateY(5px);
+        box-shadow:
+          2px 0 4px 1px rgba(0, 0, 0, 1);
+      }
+  // comments_thread
+  .comments_thread{
+    width: 95%;
+    margin: 10px;
+  }
+    .comments_thread .comment_bubble{
+      background-color: #ebebeb;
+      width:auto;
+      border-radius: 50px;
+      padding: 5px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+      .comments_thread .comment_bubble #top_li h3 a{
+        color: black !important;
+      }
+    .comments_thread .comment_time{
+      text-align: right;
+    }
+// end comments
+
+// show links
+.show_links{
+   margin: 20px;
+}
+  .show_links a{
+
+  }
+  .show_links .original_site{
+    display: grid;
+    grid-template-columns: 12% 88%;
+    grid-template-rows: 40px;
+    grid-template-areas:
+    "h3 button";
+  }
+    .show_links .original_site h3{
+      grid-area: h3;
+      margin: 0;
+      margin-top: 15px;
+    }
+    .show_links .original_site .button_form{
+      grid-area: button;
+      margin-top: 15px;
+    }
+      .show_links .original_site .button_form input{
+        font-size: 20px;
+        border: none;
+        color: blue;
+        background-color: rgba(0, 0, 0, 0);
+        cursor: pointer;
+      }
+      .show_links .original_site .button_form input:hover{
+        color: #0026a3;
+        text-decoration: underline;
+      }
+// end show_links
+
+// footer
+.show_footer{
+  border-top: 2px solid;
+  background-color: #ed8200;
+  padding-bottom: 20px;
+}
+  .show_footer footer{
+    background-color: #ed8200;
+    height: 50px;
+    width: 100%;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "copyright logo";
+  }
+    .show_footer footer .copyright{
+      grid-area: copyright;
+    }
+    .show_footer footer .footerLogo{
+      grid-area: logo;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      float: right;
+      height: 45px;
+      padding-right: 10px;
+      margin-top: 5px;
+      margin-right: 40px;
+      margin-left: 100px;
+      text-align: right;
+    }
+    .show_footer img{
+      height: 70px;
+    }
+      #main footer .footerLogo img{
+        height: 70px;
+        margin-top: -10px;
+      }
+// end footer
+// end of show

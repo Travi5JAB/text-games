@@ -28,7 +28,15 @@ li{
 }
 
 a{
+  color: blue;
   text-decoration: none;
+}
+a:hover{
+  color: #0026a3;
+  text-decoration: underline;
+}
+a:focus{
+  color: blue;
 }
 
 button{
@@ -55,6 +63,7 @@ select:focus{
 }
 #title{
   font-size: 40px;
+  color: #ed8200;
 }
 #invisable{
   visibility: hidden;
@@ -68,11 +77,11 @@ select:focus{
 /* main container */
 #main{
   border-radius: 50px;
-  border-bottom: solid 1px #ed8200;
+  border-bottom: solid 1px #fcae30;
   padding-top: 20px;
   padding-bottom: 0;
   margin: 50px;
-  background-color: white;
+  background-color: #3b3b3b;
   width: auto;
   overflow: hidden;
   box-shadow:
@@ -80,7 +89,31 @@ select:focus{
   6px 11px 10px 10px rgba(0, 0, 0, 0.2),
   4px 10px 10px 5px rgba(0, 0, 0, 0.3);
 }
-
+  #main a{
+    color: white;
+  }
+  #main h1{
+    color: #ed8200;
+  }
+  #main h2{
+    color: #ed8200;
+  }
+  #main h3{
+    color: #ed8200;
+  }
+  #main h4{
+    color: #ed8200;
+  }
+  #main h5{
+    color: #ed8200;
+  }
+  #main h6{
+    color: #ed8200;
+  }
+  #main p{
+    color: #ed8200;
+  }
+  /* footer */
   #main footer{
     background-color: #ed8200;
     height: 50px;
@@ -96,6 +129,7 @@ select:focus{
   }
     #main footer .copyright{
       grid-area: copyright;
+      color: white;
     }
     #main footer .footerLogo{
       grid-area: logo;
@@ -113,6 +147,8 @@ select:focus{
         height: 70px;
         margin-top: -10px;
       }
+/* end footer */
+
 #content{
   margin: 20px;
 }

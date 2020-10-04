@@ -127,7 +127,16 @@ class PagesController < ApplicationController
   def add_comment
     @new_comment = Comment.new(comment_params)
     @new_comment.save
-    redirect_to "/pages/#{@new_comment.game_id}"
+    # redirect_to "/pages/#{@new_comment.game_id}"
+    respond_to do |format|
+      format.html { redirect_to @new_comments, notice: "Comment Submited" }
+      format.js   {}
+      format.json { render json: @new_comments, status: :created, location: @new_comments }
+    end
+
+    @game = Game.find(@new_comment.game_id)
+    @comment_search = Comment.where('game_id' => @game.id)
+    @comments = @comment_search.includes(:user).reverse
   end
 
   # create a new game (function on newgame.html.erb)
@@ -154,17 +163,32 @@ class PagesController < ApplicationController
   # create a new rating (function)
   def add_rating
     @rating = Rating.new(rating_params)
-    if @rating.valid? && Rating.where('user_id = ? and game_id = ?', @rating.user_id, @rating.game_id).blank?
-      @rating.save
-      redirect_to "/pages/#{@rating.game_id}"
-    elsif @rating.valid? && @rating.score == nil
-      redirect_to "/pages/#{@rating.game_id}", notice: "Cannot Rate 0. Try again."
-    elsif @rating.valid?
-      @updated_rating = Rating.where('user_id = ? and game_id = ?', @rating.user_id, @rating.game_id)
-      @updated_rating.update(rating_params)
-      redirect_to "/pages/#{@rating.game_id}", notice: "Updated Rating. #{view_context.link_to("View Rating?", "/reportinfo/#{@rating.game_id}#rating_head")}"
-    else
-      redirect_to "/pages/#{@rating.game_id}", alert: "Error has occued. Please try again"
+    respond_to do |format|
+      if @rating.valid? && Rating.where('user_id = ? and game_id = ?', @rating.user_id, @rating.game_id).blank?
+        @rating.save
+        format.html { redirect_to @rating, notice: "Rating Submited" }
+        format.js   {}
+        format.json { render json: @rating, status: :created, location: @rating }
+      elsif @rating.valid? && @rating.score == nil
+        format.html { redirect_to @rating, notice: "Cannot Rate 0. Try again." }
+        format.js   {}
+        format.json { render json: @rating, status: :created, location: @rating }
+      elsif @rating.valid?
+        @updated_rating = Rating.where('user_id = ? and game_id = ?', @rating.user_id, @rating.game_id)
+        @updated_rating.update(rating_params)
+        @notice = "Updated Rating. #{view_context.link_to("View Rating?", "/reportinfo/#{@rating.game_id}#rating_head")}"
+        format.html { redirect_to @rating, notice: 'Rating was successfully created.' }
+        format.js   {}
+        format.json { render json: @rating, status: :created, location: @rating }
+      else
+        format.html { redirect_to @rating, notice: "Error has occued. Please try again" }
+        format.js   {}
+        format.json { render json: @rating, status: :created, location: @rating }
+      end
+    end
+    @total_ratings = []
+    @rating.score.times do
+      @total_ratings << @rating.score
     end
   end
 
@@ -172,7 +196,7 @@ class PagesController < ApplicationController
   def add_visit
     @visit = Visit.new(visit_params)
     @visit.save
-    redirect_to '/profile/2', notice: "Site opened in new tab."
+    redirect_to '/', notice: "Site opened in new tab."
   end
 
   # all variable sets
