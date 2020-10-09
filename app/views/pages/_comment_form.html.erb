@@ -1,8 +1,17 @@
-<!-- <form class="comment_form" action="/add_comment" method="post"> -->
+<!-- for for comment -->
 <%= form_tag("/add_comment", method: 'post', remote: true, class: 'comment_form', id: 'comment_form' ) do %>
+  <!-- hidden fields -->
   <input type="text" name="comment[user_id]" value="<%=current_user.id%>" readonly hidden>
   <input type="text" name="comment[game_id]" value="<%=@game.id%>" readonly hidden>
-  <textarea name="comment[comment_text]" placeholder="Leave a Comment"></textarea>
-  <input class="button" type="submit" value="Submit">
+
+  <!-- value to pass back user info to controller for mention-->
+  <input class="" id="mentioned" name='mention[mentioned]' readonly hidden>
+  <input class="" name='notification[sender_id]' value='<%= current_user.id%>' readonly hidden>
+  <input class="" name='notification[recipient_id]' value='<%= @recipient.id%>' readonly hidden>
+  <input class="" name='notification[notification_type]' value='notification-@mention' readonly hidden>
+  <!-- comment textarea -->
+  <textarea name="comment[comment_text]" placeholder="Leave a Comment" id='comment_ta'></textarea>
+
+  <!-- submit for form with validate() function onclick -->
+  <input class="button" id="comment_submit" type="submit" value="Submit" onclick="return validate()" >
 <% end %>
-<!-- </form> -->

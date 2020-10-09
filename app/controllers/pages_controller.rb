@@ -13,8 +13,7 @@ class PagesController < ApplicationController
     @my_games = Game.where('creator' => current_user.username)
     @use = @my_games.last
 
-    @all_plays = Ahoy::Event.order("time DESC").select{
-      |event|
+    @all_plays = Ahoy::Event.order("time DESC").select{ |event|
       event.properties['action'] == 'show' &&
       event.user_id.to_i == current_user.id
     }
@@ -75,6 +74,7 @@ class PagesController < ApplicationController
 
   # reportinfo.htm.erb
   def reportinfo
+    allow_at_mention
     @game = Game.find(params[:id])
     @game_id = @game.id
     @user = User.find_by('username' => @game.creator)
@@ -89,10 +89,24 @@ class PagesController < ApplicationController
       event.properties['action'] == 'show' &&
       event.properties['id'].to_i == @game_id
     }
+
+    @total_ratings = []
+    Rating.find_each do |rating|
+      if rating.game_id == @game.id && @game.user_id == @game.user_id
+        @total_ratings << rating.score.to_f
+      end
+    end
+    if @total_ratings.length > 0
+      @avg = @total_ratings.sum/@total_ratings.length
+    else
+      @avg = 0
+    end
   end
 
   # show.html.erb/ single game page
   def show
+    allow_at_mention
+    temp_user
     @game = Game.find(params[:id])
     @webpage = @game.webpage
     @comment_search = Comment.where('game_id' => @game.id)
@@ -127,16 +141,24 @@ class PagesController < ApplicationController
   def add_comment
     @new_comment = Comment.new(comment_params)
     @new_comment.save
+
+    @notification = Notification.new(notification_params)
+
+    if @notification.valid? && params[:mention][:mentioned].length > 0
+      @notification.save
+      @recipient = User.where('username' => params[:mention][:mentioned])
+      @notification.update('recipient_id' => @recipient[0].id)
+    end
     # redirect_to "/pages/#{@new_comment.game_id}"
     respond_to do |format|
       format.html { redirect_to @new_comments, notice: "Comment Submited" }
       format.js   {}
       format.json { render json: @new_comments, status: :created, location: @new_comments }
     end
-
     @game = Game.find(@new_comment.game_id)
     @comment_search = Comment.where('game_id' => @game.id)
     @comments = @comment_search.includes(:user).reverse
+
   end
 
   # create a new game (function on newgame.html.erb)
@@ -200,6 +222,14 @@ class PagesController < ApplicationController
   end
 
   # all variable sets
+  # allow @mention
+  def allow_at_mention
+    @usernames = []
+    User.all.each do |user|
+      @usernames << user.username
+    end
+  end
+
   #set host location
   def set_host
     @host = 'localhost:3000'
@@ -211,6 +241,12 @@ class PagesController < ApplicationController
     # set up if statement
   end
 
+  # set a temporary user
+  def temp_user
+    @recipient = User.find(1)
+  end
+
+
 
   # all params
   def game_params
@@ -219,6 +255,10 @@ class PagesController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:comment_text, :user_id, :game_id)
+  end
+
+  def notification_params
+    params.require(:notification).permit(:sender_id, :recipient_id, :notification_type)
   end
 
   def report_params

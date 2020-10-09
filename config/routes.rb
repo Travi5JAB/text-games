@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get '/uploadmygame' => 'pages#newgame'
     get '/report/:id' => 'pages#report'
     get '/playhistory' => 'pages#playhistory'
+    
+    # post methods
     post 'add_comment' => 'pages#add_comment'
     post 'add_game' => 'pages#add_game'
     post 'add_report' => 'pages#add_report'

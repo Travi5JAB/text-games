@@ -1,17 +1,16 @@
+<!-- render parrtial - navbar -->
 <div class = "navBar" id="nav">
-
   <div class = "logo" onclick = "window.location.href = '/'">
     <%=image_tag("Text-game-logo.png", alt:"text game logo")%>
   </div>
 
+  <!-- username -->
   <div class = "username">
-
+    <!-- username dropdown -->
     <button>
-      <h3>
-        <%= current_user.username %> ▿
-      </h3>
+      <h3><%= current_user.username %> ▿</h3>
     </button>
-
+    <!-- dropdown links  -->
     <div class = "dropdown-links">
       <a id = "invisable"></a>
       <a class = "discover" href="/">Discover</a>
@@ -20,9 +19,11 @@
       <a class = "editInfo" href="/users/edit">Edit Info</a>
       <a class = "logOut" href="/users/sign_out">Log Out</a>
     </div>
-
+    <!-- end dropdown-links -->
   </div>
-
+  <!-- end  username -->
 </div>
+<!-- end navbar -->
 
+<!-- buffer between navbar and page -->
 <div id = "buffer"></div>

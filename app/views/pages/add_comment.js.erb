@@ -1,2 +1,10 @@
-$("div#comment_thread").remove();
+// runs after /add_comment
+
+// remove old comment thread
+$("div#comments_thread").remove();
+
+// render updated comment thread partial
 $("<%= escape_javascript(render :partial => 'pages/comments') %>").appendTo("#comment_area");
+
+// clear text field for comment area
+document.getElementById('comment_ta').value='';

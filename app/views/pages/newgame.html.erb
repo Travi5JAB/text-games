@@ -1,8 +1,11 @@
+<!-- head tag -->
 <head>
   <%= csrf_meta_tags %>
 </head>
 
+<!-- new game -->
 <div class="new_game" id = "main">
+  <!-- new game form  -->
   <div class="new_game_form_container" id= "form content">
     <h1 id="title">Upload Your Game</h1>
     <form class="new_game_form" action="/add_game" method="POST">
@@ -37,6 +40,8 @@
 
     </form>
   </div>
+  <!-- end new game form  -->
 
+  <!-- render partial - footer -->
   <%= render :partial => "pages/footer" if controller_name == "pages" %>
 </div>

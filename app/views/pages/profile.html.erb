@@ -1,8 +1,8 @@
+<!-- profile page -->
 <div class = "profile" id = "main">
-
+  <!-- content buffer -->
   <div class="content" id = "content">
     <h1 id="title"><%=@user.username%></h1>
-
     <!-- doesn't render if not current user -->
     <!-- ADD PRIVACY TO USER AND ALLOW FRIENDS OR PUBLIC TO SEE -->
     <%if @user.id === current_user.id%>
@@ -10,6 +10,7 @@
       <a href="/uploadmygame">Upload a Game</a>
     <%end%>
   </div>
+  <!-- end content buffer -->
 
   <!-- doesn't render if user has no games -->
   <% if @use.length > 0 %>
@@ -24,7 +25,7 @@
 </div>
 <!-- end main div -->
 
-<!-- doesn't render if user has no games -->
+<!-- user report - doesn't render if user has no games -->
 <% if @use.length > 0 %>
   <div class="reports_shell">
       <h1 id="title">Games Report</h1>
@@ -35,7 +36,7 @@
           <h3>Number of Reports: <%=@my_reports.length%></h3>
           <h3>Number of Ratings: <%=@my_ratings.length%></h3>
           <% if @all_game_avg > 0 %>
-          <h3>Average Rating: <%=@all_game_avg.round(2)%></h3>
+            <h3>Average Rating: <%=@all_game_avg.round(2)%></h3>
           <% end %>
         </div>
     </div>
@@ -47,12 +48,12 @@
       <% @use.each do |game| %>
         <% @total = 0 %>
         <% @avg = [] %>
-
+        <!-- link to report page -->
         <a href="/reportinfo/<%=game.id%>" class="game_report_info" id="game">
+          <!-- game name -->
           <li id="top_li">
             <h3><%=game.name%></h3>
           </li>
-
           <!-- get average rarting for each game only displays if at least 1 rating -->
           <li>
             <% game.ratings.each_with_index do |rating, ind| %>
@@ -64,25 +65,22 @@
               <% end %>
             <% end %>
           </li>
-
           <!-- number of reports -->
           <li>
             Reports: <%=game.reports.length%>
           </li>
-
           <!-- number of visits to game page -->
           <li>
             Plays: <%= @visits.count(game.id) %>
           </li>
-
           <!-- visits to external site -->
           <li>
             Visits: <%= game.visits.length %>
           </li>
         </a>
-
       <% end %>
     </div>
     <!-- end games report -->
-  <% end %>
-</div>
+  </div>
+<% end %>
+<!-- end game report section -->

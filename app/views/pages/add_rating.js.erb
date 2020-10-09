@@ -1,2 +1,10 @@
+// runs after /add_rating
+
+// remove old stars
 $("div#stars").remove();
+
+// add updated stars partial
 $("<%= escape_javascript(render :partial => 'pages/stars') %>").appendTo("#stars_form");
+
+// empty textarea for rating form 
+document.getElementById('rating_ta').value='';

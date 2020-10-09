@@ -67,3 +67,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 # jquery
 gem 'jquery-rails'
 gem 'rails-ujs', '~> 0.1.0'
+
+# @mention
+gem 'jquery-atwho-rails'

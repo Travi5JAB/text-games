@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_133336) do
+ActiveRecord::Schema.define(version: 2020_10_09_211209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,30 @@ ActiveRecord::Schema.define(version: 2020_10_01_133336) do
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
+  create_table "mentions", id: :serial, force: :cascade do |t|
+    t.string "mentionee_type"
+    t.integer "mentionee_id"
+    t.string "mentioner_type"
+    t.integer "mentioner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mentionee_id", "mentionee_type", "mentioner_id", "mentioner_type"], name: "mentions_mentionee_mentioner_idx", unique: true
+    t.index ["mentionee_id", "mentionee_type"], name: "mentions_mentionee_idx"
+    t.index ["mentionee_type", "mentionee_id"], name: "index_mentions_on_mentionee_type_and_mentionee_id"
+    t.index ["mentioner_id", "mentioner_type"], name: "mentions_mentioner_idx"
+    t.index ["mentioner_type", "mentioner_id"], name: "index_mentions_on_mentioner_type_and_mentioner_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "sender_id"
+    t.bigint "recipient_id"
+    t.string "notification_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+    t.index ["sender_id"], name: "index_notifications_on_sender_id"
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comment"
@@ -125,6 +149,8 @@ ActiveRecord::Schema.define(version: 2020_10_01_133336) do
   add_foreign_key "comments", "games"
   add_foreign_key "comments", "users"
   add_foreign_key "games", "users"
+  add_foreign_key "notifications", "users", column: "recipient_id"
+  add_foreign_key "notifications", "users", column: "sender_id"
   add_foreign_key "ratings", "games"
   add_foreign_key "ratings", "users"
   add_foreign_key "reports", "games"

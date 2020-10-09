@@ -1,8 +1,17 @@
+<!-- @mention function -->
+<%= javascript_include_tag('/javascripts/atMention.js') %>
+<!-- pass @username to atMention.js -->
+<div class="" id="invisable">
+  <%= content_tag :div, class: "temp_information", data: {usernames: @usernames} do %>
+  <% end %>
+</div>
+
+<!-- report info section -->
 <div class="report_info" id="main">
   <!-- content -->
   <div class="content" id="content">
     <div class="" id="center">
-      <h1 id="title"><%=@game.name%></h1>
+      <h1 id="title"><a href="/pages/<%=@game.id%>"><%=@game.name%></a></h1>
     </div>
     <h3>Uplaoded By: <a href="/profile/<%=@user.id%>"><%=@game.creator%></a></h3>
     <h3>Number of Plays: <%= @game_visits.length %></h3>
@@ -57,14 +66,17 @@
       <h3>Number of Ratings: <%=@rating.length%></h3>
     </div>
 
-    <a href="/pages/<%=@game.id%>#rating">Rate This Game</a>
+    <div class="" id = 'collapse'>
+      <!-- render partial - rating form -->
+      <%= render :partial => "pages/rate_form", :object=> @total_ratings%>
+    </div>
     <hr>
 
     <!-- renders if no ratings -->
     <% if @rating.length == 0 %>
       <h2>This Game has no Ratings</h2>
     <% end %>
-
+    <!-- all ratings -->
     <div class="table" id="ratings_table">
       <% @rating.each do |l| -%>
       <div class="report_data">
@@ -95,14 +107,14 @@
       </div>
       <h3>Number of Comments: <%=@comments.length%></h3>
     </div>
-
-    <!-- enter render if no comments -->
-    <a href="/pages/<%=@game.id%>#rating">Comment on This Game</a>
     <hr>
+    <!-- render partial - comment form  -->
+    <div class="comment_form_container" id='comment_area'>
+      <%= render :partial => "pages/comment_form" %>
+    </div>
 
     <!-- render partial - comments -->
     <%= render :partial => "pages/comments" if controller_name == "pages" %>
-
     <!-- end comments-->
   </div>
   <!-- end content -->
@@ -110,3 +122,4 @@
   <!-- render partial - footer -->
   <%= render :partial => "pages/footer" if controller_name == "pages" %>
 </div>
+<!-- end report info section -->
