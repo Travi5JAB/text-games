@@ -37,6 +37,14 @@ class User < ApplicationRecord
   has_many :comments
   has_many :visits
 
+  has_many :sent,
+           :class_name => "Notification",
+           :foreign_key  => "sent_id"
+
+  has_many :received,
+           :class_name => "Notification",
+           :foreign_key  => "received_id"
+
   has_many :visits, class_name: "Ahoy::Visit"
 
 end

@@ -1,7 +1,10 @@
+<!-- render if no comments on game -->
 <% if @comments.length == 0 %>
   <h2>No Comments on this Game</h2>
 <% end %>
-<div class="comments_thread" id='comment_thread'>
+
+<!-- list of all comments on game -->
+<div class="comments_thread" id='comments_thread'>
   <% @comments.each do |comment| %>
     <div class="comment_bubble">
       <li id="top_li">
@@ -17,5 +20,4 @@
       </li>
     </div>
   <% end %>
-
 </div>

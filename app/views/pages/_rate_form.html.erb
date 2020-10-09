@@ -1,0 +1,13 @@
+<div class="rating" id="content">
+  <h2 id="title">Rate this Game</h2>
+  <%= form_tag("/add_rating", method: 'post', remote: true, class: 'star_group', id: 'stars_form' ) do %>
+    <input type="text" name="rating[user_id]" value="<%=current_user.id%>" readonly hidden>
+    <input type="text" name="rating[game_id]" value="<%=@game.id%>" readonly hidden>
+
+    <!-- render partial - stars -->
+    <%= render "pages/stars", stars: @total_ratings %>
+
+    <textarea name="rating[comment]" placeholder="Leave a comment with Rating" id='rating_ta'></textarea>
+    <%= submit_tag "Submit",:id=>"submit", data: { confirm: "Submit Rating?" } %>
+  <% end %>
+</div>

@@ -1,13 +1,19 @@
+<!-- home page/ all games page -->
+
+<!-- shatter effect -->
 <div class = "shatter2">
-
+  <!-- home section -->
   <div id = "main" class = "home">
-
+    <!-- content buffer -->
     <div id = "content">
       <%= render :partial => "pages/games"  if controller_name == "pages" %>
     </div>
+    <!-- end buffer -->
 
+    <!-- render partial - footer -->
     <%= render :partial => "pages/footer" if controller_name == "pages" %>
 
   </div>
-
+  <!-- end home section -->
 </div>
+<!-- end shatter section -->

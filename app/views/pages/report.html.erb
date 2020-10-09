@@ -1,29 +1,33 @@
+<!-- head section  -->
 <head>
   <%= csrf_meta_tags %>
 </head>
 
+<!-- report game section -->
 <div class = "report" id = "main">
   <div class="new_report">
       <h1 id="title">Report <%=@game.name%></h1>
+      <!-- creator of game being reported -->
       <div class="creator">
         <h3>Game Uploader: </h3>
         <p><%=@game.creator%></p>
       </div>
-
+      <!-- webpage of game being reported -->
       <div class="url">
         <h3>Original URL: </h3>
         <p><%=@game.webpage%></p>
       </div>
+      <!-- form -->
       <form id="form" class="new_report_form" action="/add_report" method="POST">
-
+        <!-- game id - not displayed -->
         <div class="game_id">
           <input type="text" name="report[game_id]" value="<%=@game.id%>" readonly hidden>
         </div>
-
+        <!-- reporter id (current user) - not displayed -->
         <div class="reporter_id">
           <input type="text" name="report[user_id]" value="<%=current_user.id%>" readonly hidden>
         </div>
-
+        <!-- reason dropdown -->
         <div class="reason">
           <h3>Reason for Report:</h3>
           <select class="" name="report[reason]">
@@ -35,17 +39,19 @@
         </div>
 
       <!-- would be nice to add a counter for textarea -->
+        <!-- textarea - max length 255 -->
         <div class="notes">
           <h3>Why are you reporting this game?</h3>
-          <!-- max length 255 -->
           <textarea name="report[notes]" maxlength="255" placeholder="tell us more about why you are reporting this game... (max char. 255)"></textarea>
         </div>
-
+        <!-- submit button  -->
         <div class="submit">
           <input type="submit" class="submit" value = "Report Game" data-confirm= "Are you Sure?">
         </div>
-
       </form>
+      <!-- end form -->
   </div>
+  <!-- render partial - footer -->
   <%= render :partial => "pages/footer" if controller_name == "pages" %>
 </div>
+<!-- end report game section -->

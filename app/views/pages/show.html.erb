@@ -1,37 +1,15 @@
 <!-- full screen function for iframe -->
-<script>
-  function fullScreen() {
-    var element = document.getElementById("iframe");
-    if(element.classList == 'not_full'){
-      document.getElementById('full_screen').innerHTML = "Exit Full"
-      var scroll = document.querySelector("#iframe");
-      scroll.scrollIntoView();
-      element.classList.remove("not_full");
-      element.classList.add("full_screen");
-      console.log("clicked");
-    }else{
-      document.getElementById('full_screen').innerHTML = "Full Screen"
-      const full = 'Full Screen'
-      var scroll = document.querySelector("#main");
-      scroll.scrollIntoView();
-      element.classList.remove("full_screen");
-      element.classList.add("not_full");
-      console.log("clicked");
-    }
-  }
-</script>
-<script type="text/javascript">
-  $(document).ready ->
-  $("#stars").on("ajax:success", (e, data, status, xhr) ->
-    $("#stars_form").append xhr.responseText
-  ).bind "ajax:error", (e, xhr, status, error) ->
-    $("#stars_form").append "<p>ERROR</p>"
-  $(document).ready ->
-  $("#comment_thread").on("ajax:success", (e, data, status, xhr) ->
-    $("#comment_area").append xhr.responseText
-  ).bind "ajax:error", (e, xhr, status, error) ->
-    $("#comment_area").append "<p>ERROR</p>"
-</script>
+<%= javascript_include_tag('/javascripts/fullScreen.js') %>
+<!-- reload partials without page refresh -->
+<%= javascript_include_tag('/javascripts/reload.js') %>
+<!-- @mention function -->
+<%= javascript_include_tag('/javascripts/atMention.js') %>
+<!-- pass @username to atMention.js -->
+<div class="" id="invisable">
+  <%= content_tag :div, class: "temp_information", data: {usernames: @usernames} do %>
+  <% end %>
+</div>
+<!-- end @mention -->
 
 <div class="game_screen" id="main">
   <!-- header -->
@@ -53,7 +31,7 @@
 
   <!-- game_info section -->
   <div class="game_info" id="content">
-    <h2>Game Info</h2>
+    <h2 id='title'>Game Info</h2>
     <h3 class="upload">Uploaded by:
       <a href="/profile/<%=@game.user_id%>"><%=@game.creator%></a>
     </h3>
@@ -83,22 +61,6 @@
 </div>
 <!-- end game screen -->
 
-<!-- rating section -->
-<div class="rating" id="content">
-  <h2 id="title">Rate this Game</h2>
-  <%= form_tag("/add_rating", method: 'post', remote: true, class: 'star_group', id: 'stars_form' ) do %>
-    <input type="text" name="rating[user_id]" value="<%=current_user.id%>" readonly hidden>
-    <input type="text" name="rating[game_id]" value="<%=@game.id%>" readonly hidden>
-
-    <!-- render partial - stars -->
-    <%= render "pages/stars", stars: @total_ratings %>
-
-    <textarea name="rating[comment]" placeholder="Leave a comment with Rating"></textarea>
-    <%= submit_tag "Submit",:id=>"submit", data: { confirm: "Submit Rating?" } %>
-  <% end %>
-</div>
-<!-- end rating section -->
-
 <!-- comments section -->
 <div class="comments" id='main'>
   <div class="content" id = "content">
@@ -106,7 +68,7 @@
 
       <h1>Comment Thread</h1>
       <!-- render partial - comment form -->
-      <%= render :partial => "pages/comment_form" if controller_name == "pages" %>
+      <%= render :partial => "pages/comment_form" %>
       <!-- render partial - comments -->
       <%= render 'pages/comments', comments: @comments%>
     </div>
@@ -114,6 +76,11 @@
 </div>
 <!-- end comments -->
 
+<!-- rating section -->
+<%= render :partial => "pages/rate_form" %>
+<!-- end rating section -->
+
+<!-- links -->
 <div class="show_links">
   <h2>
     Something wrong? <a href="/report/<%=@game.id%>">Report this Game</a>.
@@ -128,6 +95,7 @@
   </div>
   <p>Consider Visiting the orignal site.  Please <a href="/reportinfo/<%=@game.id%>#report_head"> review the number of reports and why</a> before visiting the site.</p>
 </div>
+<!-- end links -->
 <!-- end of game info -->
 
 <!-- footer -->
