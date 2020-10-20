@@ -249,9 +249,75 @@
       .comments_thread .comment_bubble #top_li h3 a{
         color: black !important;
       }
+      .comments_thread .comment_bubble #reply{
+        text-align: right;
+        margin-right: 15px;
+      }
+      .comments_thread .comment_bubble #reply button{
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        color: blue;
+      }
+        .comments_thread .comment_bubble #reply button:hover{
+          color: #0026a3;
+        }
     .comments_thread .comment_time{
       text-align: right;
     }
+  .sub_comment_form{
+
+  }
+    #scf_full{
+      display: block;
+    }
+    #scf_collapse{
+      display: none;
+    }
+    .sub_comment_form textarea{
+      resize: none;
+      width: 100%;
+      border-radius: 50px;
+      padding: 10px;
+    }
+    .sub_comment_form #scf_submit{
+      background-color: #ed8200;
+      color: white;
+      border: none;
+      width: 75px;
+      border-radius: 30px;
+      height: 25px;
+      font-size: 15px;
+      margin-left: 30px;
+      box-shadow:
+        2px 0 4px 0 rgba(0, 0, 0, 0.5),
+        2px 5px 5px 3px rgba(0, 0, 0, 0.6);
+    }
+    .sub_comment_form #scf_submit:hover{
+      background-color: #d67600;
+      color: #dbd9d9;
+      transform: translateY(5px);
+      box-shadow:
+        2px 0 4px 1px rgba(0, 0, 0, 1);
+    }
+  .sub_comments_thread{
+    margin: 10px;
+  }
+    .sub_comments_thread .sub_comment_bubble{
+      background-color: #d1d1d1;
+      margin-left: auto;
+      width:auto;
+      width: 80%;
+      border-radius: 50px;
+      padding: 5px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+      .sub_comments_thread .sub_comment_bubble #top_li h3 a{
+        color: black !important;
+      }
+
+
 // end comments
 
 // show links

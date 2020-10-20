@@ -11,7 +11,7 @@
 
   <body class="<%= controller_name %> <%= action_name %>">
     <% if current_user%>
-      <%= render :partial => "pages/navbar"  if controller_name == "pages" %>
+      <%= render :partial => "pages/part/navbar"  if controller_name == "pages" %>
 
       <% flash.each do |key, msg| -%>
         <% if flash.alert%>

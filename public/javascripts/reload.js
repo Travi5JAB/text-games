@@ -1,5 +1,5 @@
 function loadlink(){
-    $('#comments_area').load(':partial => "pages/comments"',function () {
+    $('#comments_area').load(':partial => "pages/part/comments"',function () {
          $(this).unwrap();
     });
 }

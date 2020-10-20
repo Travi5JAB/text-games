@@ -1,0 +1,37 @@
+<!-- reply expand function -->
+<%= javascript_include_tag('/javascripts/subCommentFormExpand.js') %>
+<!-- render if no comments on game -->
+<% if @comments.length < 0 %>
+  <h3> No Comments </h3>
+<% end %>
+<!-- list of all comments on game -->
+<div class="comments_thread" id='comments_thread'>
+  <% @comments.each do |comment| %>
+    <div class="comment_bubble">
+      <li id="top_li">
+        <h3><a href="/profile/<%=comment.user_id%>"><%=comment.user.username%></a></h3>
+      </li>
+      <li id=comment_text>
+        <h3><%=comment.comment_text%></h3>
+      </li>
+      <li id='reply' class='reply'>
+        <button onclick="return replyExpand()">Reply</button>
+      </li>
+    </div>
+    <div class="comment_time">
+      <li id=time>
+        <h3><%=comment.created_at.to_s[0,16]%></h3>
+      </li>
+    </div>
+
+    <%= render :partial => 'pages/part/scf', :locals => {comment:comment} %>
+
+    <!-- subcomments -->
+    <div class="sub_comments_thread" id='sub_comments_thread'>
+      <% comment.subcomments.reverse.each do |sub_comment| %>
+        <%= render :partial => 'pages/part/subcomments', :locals => {sub_comment:sub_comment} %>
+      <% end %>
+    </div>
+
+  <% end %>
+</div>

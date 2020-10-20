@@ -56,8 +56,8 @@ class PagesController < ApplicationController
     @game_visits = Ahoy::Event.select{ |event| event.properties['action'] == 'show' }
 
     @visits = []
-    @game_visits.each do |event|
-      id = event.properties['id'].to_i
+    @game_visits.each do |visit|
+      id = visit.properties['id'].to_i
       if @my_game_ids.include?(id)
         @visits << id
       end
@@ -107,10 +107,12 @@ class PagesController < ApplicationController
   def show
     allow_at_mention
     temp_user
+
     @game = Game.find(params[:id])
     @webpage = @game.webpage
     @comment_search = Comment.where('game_id' => @game.id)
-    @comments = @comment_search.includes(:user).reverse
+    @comments = @comment_search.includes(:user, :subcomments).reverse
+    @sub_comments = Subcomment.all.includes(:user).reverse
 
     # number of visits to game
     @visits = []
@@ -149,13 +151,15 @@ class PagesController < ApplicationController
       @recipient = User.where('username' => params[:mention][:mentioned])
       @notification.update('recipient_id' => @recipient[0].id)
     end
-    # redirect_to "/pages/#{@new_comment.game_id}"
+
+    @game = Game.find(@new_comment.game_id)
+
     respond_to do |format|
-      format.html { redirect_to @new_comments, notice: "Comment Submited" }
+      format.html { redirect_to "/pages/#{@game.id}", notice: "Comment Submited" }
       format.js   {}
       format.json { render json: @new_comments, status: :created, location: @new_comments }
     end
-    @game = Game.find(@new_comment.game_id)
+
     @comment_search = Comment.where('game_id' => @game.id)
     @comments = @comment_search.includes(:user).reverse
 
@@ -214,12 +218,29 @@ class PagesController < ApplicationController
     end
   end
 
+  def add_subcomment
+    @sub_comment = Subcomment.new(subcomment_params)
+    @sub_comment.save
+
+    respond_to do |format|
+      format.html { redirect_to @sub_comment, notice: "Rating Submited" }
+      format.js   {}
+      format.json { render json: @sub_comment, status: :created, location: @sub_comment }
+    end
+
+    @comment = Comment.find(@sub_comment.comment_id)
+    @game = Game.find(@comment.game_id)
+    @comment_search = Comment.where('game_id' => @game.id)
+    @comments = @comment_search.includes(:user).reverse
+  end
+
   # intended for outsite site visit
   def add_visit
     @visit = Visit.new(visit_params)
     @visit.save
     redirect_to '/', notice: "Site opened in new tab."
   end
+
 
   # all variable sets
   # allow @mention
@@ -267,6 +288,10 @@ class PagesController < ApplicationController
 
   def rating_params
     params.require(:rating).permit(:score, :comment, :user_id, :game_id)
+  end
+
+  def subcomment_params
+    params.require(:subcomment).permit(:comment_text, :comment_id, :user_id)
   end
 
   def visit_params

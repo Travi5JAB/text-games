@@ -7,6 +7,7 @@ $(function(){
 function validate(){
   data = $('.temp_information').data('usernames');
   commentTxt = $('textarea#comment_ta')
+  subCommentTxt = $('textarea#sc_ta')
   ratingTxt =  $('textarea#rating_ta')
 
   if (data.some(name => commentTxt.val().includes(name) ) ) {
@@ -14,7 +15,13 @@ function validate(){
     for (let i = 0; i < txt.length; i++){
       if (txt[i].includes('@')){
         var mentioned = txt[i].substring(1)
-        console.log(mentioned);
+      }
+    }
+  }else if (data.some(name => subCommentTxt.val().includes(name) )){
+    txt = subCommentTxt.val().split(' ')
+    for (let i = 0; i < txt.length; i++){
+      if (txt[i].includes('@')){
+        var mentioned = txt[i].substring(1)
       }
     }
   }else if (data.some(name => ratingTxt.val().includes(name) )){
@@ -22,12 +29,10 @@ function validate(){
     for (let i = 0; i < txt.length; i++){
       if (txt[i].includes('@')){
         var mentioned = txt[i].substring(1)
-        console.log(mentioned);
       }
     }
   }else{
-    var mentioned = "no mention"
-    console.log(mentioned);
+    var mentioned = ""
   }
   // sets value to pass back to controller
   $('input#mentioned').val(mentioned)
