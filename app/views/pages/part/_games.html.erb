@@ -5,6 +5,6 @@
 <div class="games">
   <% @all_games.each do |game_box| -%>
     <!-- render partial - game_box -->
-    <%= render :partial => "pages/game_box", :object=> game_box %>
+    <%= render :partial => "pages/part/game_box", :object=> game_box %>
   <% end %>
 </div>

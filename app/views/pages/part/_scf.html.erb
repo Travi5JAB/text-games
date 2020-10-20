@@ -1,0 +1,8 @@
+<div class="sub_comment_form" id='scf_collapse'>
+  <%= form_tag("/add_subcomment", method: 'post', remote: true, id: 'sub_comment_form' ) do %>
+    <input type="text" name="subcomment[user_id]" value="<%=current_user.id%>" readonly hidden>
+    <input type="text" name="subcomment[comment_id]" value="<%=comment.id%>" readonly hidden>
+    <textarea name="subcomment[comment_text]" placeholder="reply to comment" id='sc_ta'></textarea>
+    <input type="submit" id='scf_submit' value="Submit">
+  <% end %>
+</div>

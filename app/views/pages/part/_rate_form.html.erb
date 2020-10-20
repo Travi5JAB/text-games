@@ -5,7 +5,7 @@
     <input type="text" name="rating[game_id]" value="<%=@game.id%>" readonly hidden>
 
     <!-- render partial - stars -->
-    <%= render "pages/stars", stars: @total_ratings %>
+    <%= render "pages/part/stars", stars: @total_ratings %>
 
     <textarea name="rating[comment]" placeholder="Leave a comment with Rating" id='rating_ta'></textarea>
     <%= submit_tag "Submit",:id=>"submit", data: { confirm: "Submit Rating?" } %>

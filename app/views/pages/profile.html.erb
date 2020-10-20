@@ -17,11 +17,11 @@
     <hr id = "titleBreak"/>
 
     <!-- put all games uploaded by user -->
-    <%= render :partial => "pages/mygames" if controller_name == "pages" %>
+    <%= render :partial => "pages/part/mygames" if controller_name == "pages" %>
   <% end %>
 
   <!-- footer -->
-  <%= render :partial => "pages/footer" if controller_name == "pages" %>
+  <%= render :partial => "pages/part/footer" if controller_name == "pages" %>
 </div>
 <!-- end main div -->
 
@@ -40,10 +40,8 @@
           <% end %>
         </div>
     </div>
-    <hr>
 
   <!-- game breakdown section -->
-    <h1 id="title">Games Reports</h1>
     <div class="games_report" id="main">
       <% @use.each do |game| %>
         <% @total = 0 %>

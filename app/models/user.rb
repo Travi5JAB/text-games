@@ -36,6 +36,7 @@ class User < ApplicationRecord
   has_many :reports
   has_many :comments
   has_many :visits
+  has_many :subcomments
 
   has_many :sent,
            :class_name => "Notification",

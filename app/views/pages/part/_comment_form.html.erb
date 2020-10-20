@@ -1,14 +1,13 @@
 <!-- for for comment -->
-<%= form_tag("/add_comment", method: 'post', remote: true, class: 'comment_form', id: 'comment_form' ) do %>
+<%= form_tag("/add_comment", method: 'post', remote: true, class: 'comment_form', id: 'comment_form', onsubmit: 'return false' ) do %>
   <!-- hidden fields -->
   <input type="text" name="comment[user_id]" value="<%=current_user.id%>" readonly hidden>
   <input type="text" name="comment[game_id]" value="<%=@game.id%>" readonly hidden>
-
   <!-- value to pass back user info to controller for mention-->
-  <input class="" id="mentioned" name='mention[mentioned]' readonly hidden>
-  <input class="" name='notification[sender_id]' value='<%= current_user.id%>' readonly hidden>
-  <input class="" name='notification[recipient_id]' value='<%= @recipient.id%>' readonly hidden>
-  <input class="" name='notification[notification_type]' value='notification-@mention' readonly hidden>
+  <input id="mentioned" name='mention[mentioned]' readonly hidden>
+  <input name='notification[sender_id]' value='<%= current_user.id%>' readonly hidden>
+  <input name='notification[recipient_id]' value='<%= @recipient.id%>' readonly hidden>
+  <input name='notification[notification_type]' value='notification-@mention' readonly hidden>
   <!-- comment textarea -->
   <textarea name="comment[comment_text]" placeholder="Leave a Comment" id='comment_ta'></textarea>
 

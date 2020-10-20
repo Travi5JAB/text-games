@@ -1,0 +1,13 @@
+<div class="sub_comment_bubble">
+  <li id="top_li">
+    <h3><a href="/profile/<%=sub_comment.user_id%>"><%=sub_comment.user.username%></a></h3>
+  </li>
+  <li id=comment_text>
+    <h3><%=sub_comment.comment_text%></h3>
+  </li>
+</div>
+<div class="comment_time">
+  <li id=time>
+    <h3><%=sub_comment.created_at.to_s[0,16]%></h3>
+  </li>
+</div>

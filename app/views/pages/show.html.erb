@@ -1,10 +1,12 @@
 <!-- full screen function for iframe -->
 <%= javascript_include_tag('/javascripts/fullScreen.js') %>
+<!-- submit on enter -->
+<%= javascript_include_tag('/javascripts/quickSub.js') %>
 <!-- reload partials without page refresh -->
 <%= javascript_include_tag('/javascripts/reload.js') %>
 <!-- @mention function -->
 <%= javascript_include_tag('/javascripts/atMention.js') %>
-<!-- pass @username to atMention.js -->
+<!-- pass @usernames to atMention.js -->
 <div class="" id="invisable">
   <%= content_tag :div, class: "temp_information", data: {usernames: @usernames} do %>
   <% end %>
@@ -68,16 +70,16 @@
 
       <h1>Comment Thread</h1>
       <!-- render partial - comment form -->
-      <%= render :partial => "pages/comment_form" %>
+      <%= render :partial => "pages/part/comment_form" %>
       <!-- render partial - comments -->
-      <%= render 'pages/comments', comments: @comments%>
+      <%= render 'pages/part/comments', comments: @comments%>
     </div>
   </div>
 </div>
 <!-- end comments -->
 
 <!-- rating section -->
-<%= render :partial => "pages/rate_form" %>
+<%= render :partial => "pages/part/rate_form" %>
 <!-- end rating section -->
 
 <!-- links -->
@@ -100,5 +102,5 @@
 
 <!-- footer -->
 <div class="show_footer" id="">
-  <%= render :partial => "pages/footer" if controller_name == "pages" %>
+  <%= render :partial => "pages/part/footer" if controller_name == "pages" %>
 </div>

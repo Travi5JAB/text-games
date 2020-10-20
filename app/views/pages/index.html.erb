@@ -6,12 +6,12 @@
   <div id = "main" class = "home">
     <!-- content buffer -->
     <div id = "content">
-      <%= render :partial => "pages/games"  if controller_name == "pages" %>
+      <%= render :partial => "pages/part/games"  if controller_name == "pages" %>
     </div>
     <!-- end buffer -->
 
     <!-- render partial - footer -->
-    <%= render :partial => "pages/footer" if controller_name == "pages" %>
+    <%= render :partial => "pages/part/footer" if controller_name == "pages" %>
 
   </div>
   <!-- end home section -->

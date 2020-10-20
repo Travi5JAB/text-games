@@ -1,4 +1,4 @@
-// runs after /add_comment
+// runs after /add_subcomment
 
 // remove old comment thread
 $("div#comments_thread").remove();
@@ -7,4 +7,4 @@ $("div#comments_thread").remove();
 $("<%= escape_javascript(render :partial => 'pages/part/comments') %>").appendTo("#comment_area");
 
 // clear text field for comment area
-document.getElementById('comment_ta').value='';
+document.getElementById('sc_ta').value='';

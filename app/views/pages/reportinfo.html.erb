@@ -1,6 +1,6 @@
 <!-- @mention function -->
 <%= javascript_include_tag('/javascripts/atMention.js') %>
-<!-- pass @username to atMention.js -->
+<!-- pass @usernames to atMention.js -->
 <div class="" id="invisable">
   <%= content_tag :div, class: "temp_information", data: {usernames: @usernames} do %>
   <% end %>
@@ -68,7 +68,7 @@
 
     <div class="" id = 'collapse'>
       <!-- render partial - rating form -->
-      <%= render :partial => "pages/rate_form", :object=> @total_ratings%>
+      <%= render :partial => "pages/part/rate_form", :object=> @total_ratings%>
     </div>
     <hr>
 
@@ -110,16 +110,16 @@
     <hr>
     <!-- render partial - comment form  -->
     <div class="comment_form_container" id='comment_area'>
-      <%= render :partial => "pages/comment_form" %>
+      <%= render :partial => "pages/part/comment_form" %>
     </div>
 
     <!-- render partial - comments -->
-    <%= render :partial => "pages/comments" if controller_name == "pages" %>
+    <%= render :partial => "pages/part/comments" if controller_name == "pages" %>
     <!-- end comments-->
   </div>
   <!-- end content -->
 
   <!-- render partial - footer -->
-  <%= render :partial => "pages/footer" if controller_name == "pages" %>
+  <%= render :partial => "pages/part/footer" if controller_name == "pages" %>
 </div>
 <!-- end report info section -->
